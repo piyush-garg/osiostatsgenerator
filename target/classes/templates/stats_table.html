@@ -1,0 +1,23 @@
+{% extends "templates/stats4osio.html" %}
+
+{% block content %}
+<table>
+    <caption>STATS FOR OSIO</caption>
+    <thead>
+    <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Number of Open Issues</th>
+        <th scope="col">Github Link</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for stat in stats %}
+    <tr>
+        <td data-label="Category">{{ stat.Name }}</td>
+        <td data-label="Number of Open Issues">{{ stat.Count }}</td>
+        <td data-label="Github Link"><a href="{{stat.URL}}" >Link</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
