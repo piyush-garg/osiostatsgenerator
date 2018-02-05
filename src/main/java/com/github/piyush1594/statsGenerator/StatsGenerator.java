@@ -35,7 +35,7 @@ public class StatsGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        token = System.getenv("GITHUB_TOKEN")
+        token = System.getenv("GITHUB_TOKEN");
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/stats", new MyHandler());
