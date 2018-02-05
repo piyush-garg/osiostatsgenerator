@@ -35,10 +35,15 @@ public class StatsGenerator {
 
     public static void main(String[] args) throws Exception {
 
-        token = System.getenv("GITHUB_TOKEN");
+        if (args.length == 0){
+            token = System.getenv("GITHUB_TOKEN");
 
-        if(token == null){
-            token = "";
+            if (token == null) {
+                token = "";
+            }
+        }
+        else if (args.length == 1){
+            token = args[0];
         }
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
