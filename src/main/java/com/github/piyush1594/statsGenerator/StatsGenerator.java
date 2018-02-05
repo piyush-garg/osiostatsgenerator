@@ -4,6 +4,13 @@ import com.mitchellbosecke.pebble.PebbleEngine;
 import com.mitchellbosecke.pebble.error.PebbleException;
 import com.mitchellbosecke.pebble.template.PebbleTemplate;
 
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -26,18 +33,16 @@ public class StatsGenerator {
 
     private static String token = "";
 
-    public static void main(String args[]) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         if( args.length ==1 ){
             token = args[0];
         }
 
-        initialise();
-
-        generateStats();
-
-        printHTMLStats();
-
+        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        server.createContext("/stats", new MyHandler());
+        server.setExecutor(null); // creates a default executor
+        server.start();
     }
 
     private static void initialise() throws Exception {
@@ -51,7 +56,7 @@ public class StatsGenerator {
         sev2.setURL(baseUrl + extendCountUrl + "+label:SEV2-high");
         queries.add(1,sev2);
 
-        QueryField noLabels = new QueryField("Needs Triaging – No labels have been assigned");
+        QueryField noLabels = new QueryField("Needs Triaging - No labels have been assigned");
         noLabels.setURL(baseUrl + extendCountUrl + "+no:label");
         queries.add(2,noLabels);
 
@@ -94,7 +99,7 @@ public class StatsGenerator {
         }
     }
 
-    private static void printHTMLStats() throws PebbleException, IOException {
+    private static String printHTMLStats() throws PebbleException, IOException {
 
         PebbleEngine engine = new PebbleEngine.Builder().build();
         PebbleTemplate compiledTemplate = engine.getTemplate("templates/stats_table.html");
@@ -108,7 +113,29 @@ public class StatsGenerator {
 
         compiledTemplate.evaluate(writer, context);
         String output = writer.toString();
-        System.out.println(output);
+        return output;
+    }
+
+    private static class MyHandler implements HttpHandler {
+
+        @Override
+        public void handle(HttpExchange t) throws IOException {
+
+            try {
+                initialise();
+
+                generateStats();
+
+                String response = printHTMLStats();
+
+                t.sendResponseHeaders(200, response.getBytes().length);
+                OutputStream os = t.getResponseBody();
+                os.write(response.getBytes());
+                os.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
