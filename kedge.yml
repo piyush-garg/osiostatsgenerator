@@ -1,0 +1,8 @@
+name: osiostatsgenerator
+deployments:
+- containers:
+  - image: piyushgarg/osiostatsgenerator:latest
+    imagePullPolicy: Always
+services:
+  - portMappings:
+    - 8000
