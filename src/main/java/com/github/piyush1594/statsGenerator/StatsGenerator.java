@@ -92,6 +92,14 @@ public class StatsGenerator {
         QueryField noAssignee = new QueryField("Issues that have not been assigned");
         noAssignee.setURL(baseUrl + extendCountUrl + "+no:assignee");
         queries.add(5,noAssignee);
+
+        QueryField crucial = new QueryField("Issues identified as crucial dependencies");
+        crucial.setURL(baseUrl + extendCountUrl + "+label:crucial-dep");
+        queries.add(6,crucial);
+
+        QueryField statusUpdate = new QueryField("Issues that need a status update");
+        statusUpdate.setURL(baseUrl + extendCountUrl + "+label:status/info-needed");
+        queries.add(7,statusUpdate);
     }
 
     private static void generateStats() throws Exception{
