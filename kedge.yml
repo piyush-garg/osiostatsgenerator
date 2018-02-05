@@ -1,5 +1,5 @@
 name: osiostatsgenerator
-deployments:
+deploymentConfigs:
 - containers:
   - image: piyushgarg/osiostatsgenerator:latest
     imagePullPolicy: Always

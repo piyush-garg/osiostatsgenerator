@@ -15,4 +15,14 @@ You can see [here](https://help.github.com/articles/creating-a-personal-access-t
 
 ## How to run on OpenShift
 
-The latest image has been pushed to Docker Hub. To deploy the application on OpenShift, simply run `kedge apply -f kedge.yml` and you should be good to go!
+The latest image has been pushed to Docker Hub. To deploy the application on OpenShift, simply run
+
+- `kedge apply -f kedge.yml`
+
+Now service and deployment wiil be created. Expose your service to create route.
+
+- `oc expose service service_name`
+
+Get the api endpoint of Route and append /stats to it at the end. (Example : http://------.nio.io/stats)
+
+Open the link in your browser. You will be able to see OSIO stats.
