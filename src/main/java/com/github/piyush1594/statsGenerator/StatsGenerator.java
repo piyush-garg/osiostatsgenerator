@@ -37,6 +37,10 @@ public class StatsGenerator {
 
         token = System.getenv("GITHUB_TOKEN");
 
+        if(token == null){
+            token = "";
+        }
+
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
         server.createContext("/stats", new MyHandler());
         server.setExecutor(null); // creates a default executor
