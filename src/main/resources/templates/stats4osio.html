@@ -7,75 +7,63 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.25;
 }
+p {
+  text-align: center;
+  font-size: .8em;
+}
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
-  margin-left: 0%;
+  margin:0 10%;
   padding: 0;
   width: 80%;
   table-layout: fixed;
   table-align: center;
 }
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-table smallcaption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
-}
-table tr {
+
+table tr{
   background: #f8f8f8;
   border: 1px solid #ddd;
-  padding: .35em;
 }
 table th,
 table td {
   padding: .625em;
   text-align: center;
+  border: 1px solid #ddd;
 }
 table th {
-  font-size: .85em;
   letter-spacing: .1em;
   text-transform: uppercase;
 }
+table caption {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+table caption a {
+    color: #000000;
+}
 @media screen and (max-width: 600px) {
-  table {
-    border: 0;
-  }
-  table caption {
-    font-size: 1.3em;
-  }
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
+
+  table tr td:first-child {
+    font-weight: bold;
   }
   table tr {
-    border-bottom: 3px solid #ddd;
     display: block;
-    margin-bottom: .625em;
+    margin: 0.625em;
   }
-  table td {
-    border-bottom: 1px solid #ddd;
+  table tr:first-child{
+    margin-bottom: 0 !important;
+   }
+  table td,
+  table th{
     display: block;
-    font-size: .8em;
-    text-align: right;
+    font-size: 1.2em;
+    text-align: left;
   }
-  table td:before {
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-  table td:last-child {
-    border-bottom: 0;
+  table tr td:last-child,
+  table tr th:last-child {
+    border-bottom: 0 !important;
   }
 }
 </style>
@@ -86,5 +74,6 @@ table th {
     {% block content %}{% endblock %}
 </div>
 </div>
+<p>This is an auto-sent mail which is auto-generated from data of <a href="http://osiostatsgenerator-osiostatsgenerator.dev.rdu2c.fabric8.io/stats" >website</a> which is hosted on dev-cluster using source <a href="https://github.com/piyush1594/osiostatsgenerator" >code</a></p>
 </body>
 </html>
